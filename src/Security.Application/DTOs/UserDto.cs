@@ -22,5 +22,8 @@ namespace Security.Application.DTOs
 
         [JsonProperty("email")]
         public string Email { get; set; }
+       
+        [JsonProperty("created_at")]
+        public DateTime CreatedAt { get; private set; }
     }
 }

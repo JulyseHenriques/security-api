@@ -1,13 +1,4 @@
-﻿/*
-using Security.Application.Commands.Handlers;
-using Security.Application.Interfaces;
-using Security.Application.Services;
-using Security.Infrastructure.Data;
-using Security.Infrastructure.Interfaces;
-using Security.Infrastructure.Repositories;
-*/
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Security.Application.Commands.Handlers;
 using Security.Application.Interfaces;
 using Security.Application.Services;
@@ -19,19 +10,30 @@ namespace Security.WebAPI.Configurations
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+            return services;
+        }
 
-            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
+        public static IServiceCollection ConfigureInterfaces(this IServiceCollection services)
+        {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            return services;
+        }
+
+        public static IServiceCollection ConfigureServices(this IServiceCollection services)
+        {
             services.AddAutoMapper(typeof(AutoMapperProfile));
+
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateUserCommandHandler).Assembly));
+
             services.AddControllers();
 
-            // Add Swagger/OpenAPI for API documentation.
             services.AddEndpointsApiExplorer();
+
             services.AddSwaggerGen();
 
             return services;
