@@ -11,7 +11,7 @@ builder.Services.ConfigureServices();
 
 var app = builder.Build();
 app.ConfigureApplications();
-ApplyMigrations();
+//ApplyMigrations();
 app.Run();
 
 void ApplyMigrations()

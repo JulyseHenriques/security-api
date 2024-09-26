@@ -1,7 +1,7 @@
-//using Security.Application.Commands;
-//using Security.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Security.Application.Commands;
+using Security.Application.Queries;
 
 namespace Security.WebAPI.Controllers
 {
@@ -31,8 +31,8 @@ namespace Security.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
-            //var user = await _mediator.Send(new GetUserByIdQuery(id));
-            //return user.Id != 0 ? Ok(user) : NotFound();
+            var user = await _mediator.Send(new GetUserByIdQuery(id));
+            return user.Id != 0 ? Ok(user) : NotFound();
             return Ok();
         }
 
@@ -40,14 +40,12 @@ namespace Security.WebAPI.Controllers
 
         #region Persistênce
 
-        /*
         [HttpPost("create")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand command)
         {
             var userId = await _mediator.Send(command);
             return CreatedAtAction("CreateUser", new { id = userId }, userId);
         }
-        */
 
         #endregion
     }
