@@ -29,11 +29,10 @@ namespace Security.WebAPI.Controllers
         #region Queries
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> GetUser(Guid id)
         {
             var user = await _mediator.Send(new GetUserByIdQuery(id));
-            return user.Id != 0 ? Ok(user) : NotFound();
-            return Ok();
+            return user.Id == id ? Ok(user) : NotFound();
         }
 
         #endregion

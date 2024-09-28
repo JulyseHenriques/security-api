@@ -27,7 +27,7 @@ namespace Security.Application.Services
 
         #region Queries
 
-        public UserDto GetUserById(int id)
+        public UserDto GetUserById(Guid id)
         {
             var user = _userRepository.GetByIdAsync(id).Result;
             var userDto = user != null ? _mapper.Map<UserDto>(user) : new UserDto();
@@ -38,11 +38,11 @@ namespace Security.Application.Services
 
         #region Persistence
 
-        public async Task<int> CreateUserAsync(UserDto userDto)
+        public async Task<Guid> CreateUserAsync(UserDto userDto)
         {
-            var user = _mapper.Map<User>(userDto);
-            await _userRepository.AddAsync(user);
-            return user.Id;
+            var userEntity = _mapper.Map<UserEntity>(userDto);
+            await _userRepository.AddAsync(userEntity);
+            return userEntity.Id;
         }
 
         #endregion

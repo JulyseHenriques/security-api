@@ -4,11 +4,21 @@ namespace Security.Infrastructure.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User> GetByIdAsync(int id);
-        Task<IEnumerable<User>> GetAllAsync();
-        Task<User> AddAsync(User user);
-        Task UpdateAsync(User user);
-        Task DeleteAsync(int id);
+        #region Queries
+
+        Task<UserEntity> GetByIdAsync(Guid id);
+
+        //Task<IEnumerable<UserEntity>> GetAllAsync();
+
+        #endregion
+
+        #region Persistence
+
+        Task<UserEntity> AddAsync(UserEntity userEntity);
+        Task UpdateAsync(UserEntity userEntity);
+        Task DeleteAsync(Guid id);
+
+        #endregion
     }
 }
 

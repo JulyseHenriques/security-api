@@ -5,11 +5,8 @@ namespace Security.Application.Queries
 {
     public class GetUserByIdQuery : IRequest<UserDto>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
-        public GetUserByIdQuery(int id)
-        {
-            Id = id;
-        }
+        public GetUserByIdQuery(Guid id) { Id = id; }
     }
 }

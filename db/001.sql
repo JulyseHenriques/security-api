@@ -11,3 +11,8 @@ CREATE ROLE "SECURITY_API"
 
 -- Conceder todas as permissões do banco de dados ao novo usuário
 GRANT ALL ON SCHEMA public TO "SECURITY_API";
+
+
+-- Extensão que permite autogeração de UUIDs. 
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+

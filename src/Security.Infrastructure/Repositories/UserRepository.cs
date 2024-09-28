@@ -1,7 +1,9 @@
-﻿using Security.Infrastructure.Interfaces;
-using Security.Domain.Entities;
-using Security.Infrastructure.Data;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Security.Domain.Entities;
+using Security.Infrastructure.Interfaces;
+using Security.Infrastructure.Data;
+using Security.Infrastructure.Models;
 
 namespace Security.Infrastructure.Repositories
 {
@@ -9,14 +11,16 @@ namespace Security.Infrastructure.Repositories
     {
         #region Properties
 
-        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+        private readonly SecurityContext _context;
 
         #endregion
 
         #region Constructors
 
-        public UserRepository(ApplicationDbContext context)
+        public UserRepository(IMapper mapper, SecurityContext context)
         {
+            _mapper = mapper;
             _context = context;
         }
 
@@ -24,34 +28,45 @@ namespace Security.Infrastructure.Repositories
 
         #region Queries
 
-        public async Task<User> GetByIdAsync(int id)
+        public async Task<UserEntity> GetByIdAsync(Guid id)
         {
-            return await _context.Users.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
+
+            return _mapper.Map<UserEntity>(user);
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
-        {
-            return await _context.Users.ToListAsync();
-        }
+        //public async Task<IEnumerable<UserEntity>> GetAllAsync()
+        //{
+        //    var users = await _context.Users.ToListAsync();
+
+        //    return _mapper.Map<UserEntity>(users);
+        //}
 
         #endregion
 
         #region Persistence
 
-        public async Task<User> AddAsync(User user)
+        public async Task<UserEntity> AddAsync(UserEntity userEntity)
         {
+            var user = _mapper.Map<User>(userEntity);
+
             await _context.Users.AddAsync(user);
+
             await _context.SaveChangesAsync();
-            return user;
+
+            return _mapper.Map<UserEntity>(user);
         }
 
-        public async Task UpdateAsync(User user)
+        public async Task UpdateAsync(UserEntity userEntity)
         {
+            var user = _mapper.Map<User>(userEntity);
+
             _context.Users.Update(user);
+
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
 

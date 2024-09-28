@@ -4,7 +4,16 @@ namespace Security.Application.Interfaces
 {
     public interface IUserService
     {
-        UserDto GetUserById(int id);
-        Task<int> CreateUserAsync(UserDto userDto);
+        #region Queries
+
+        UserDto GetUserById(Guid id);
+
+        #endregion
+
+        #region Persistence
+
+        Task<Guid> CreateUserAsync(UserDto userDto);
+
+        #endregion
     }
 }

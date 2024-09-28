@@ -1,14 +1,18 @@
 ﻿namespace Security.Domain.Entities
 {
-    public class User
+    public class UserEntity
     {
-        public int Id { get; private set; }
+        public Guid Id { get; private set; }
         public string Name { get; private set; }
         public string Email { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        public DateTime? CreatedAt { get; private set; }
+        public DateTime? UpdatedAt { get; set; }
+
+        //public List<Address> Addresses { get; set; }
+        //public List<Contact> Contacts { get; set; }
 
         // Construtor para criar um novo usuário
-        public User(string name, string email)
+        public UserEntity(string name, string email)
         {
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Name cannot be empty");
             if (string.IsNullOrWhiteSpace(email)) throw new ArgumentException("Email cannot be empty");

@@ -6,24 +6,19 @@ namespace Security.Application.DTOs
     {
         public UserDto() { }
 
-        public UserDto(string name, string email, int id)
+        public UserDto(string name, string email)
         {
-            this.Id = id;
             this.Name = name;
-            this.Email = email;
             this.Email = email;
         }
 
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [JsonProperty("email")]
         public string Email { get; set; }
-       
-        [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; private set; }
     }
 }

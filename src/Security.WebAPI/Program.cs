@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Security.Infrastructure.Data;
+using Security.Infrastructure.Models;
 using Security.WebAPI.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,7 @@ void ApplyMigrations()
 {
     using (var scope = app.Services.CreateScope())
     {
-        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<SecurityContext>();
 
         if (dbContext != null)
         {

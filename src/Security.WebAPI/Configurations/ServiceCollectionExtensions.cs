@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Security.Application.Commands.Handlers;
 using Security.Application.Interfaces;
 using Security.Application.Services;
@@ -15,7 +14,7 @@ namespace Security.WebAPI.Configurations
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+            services.AddDbContext<SecurityContext>(options => options.UseNpgsql(connectionString));
 
             return services;
         }
