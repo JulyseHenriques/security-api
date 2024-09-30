@@ -27,11 +27,10 @@ namespace Security.Application.Services
 
         #region Queries
 
-        public UserDto GetUserById(Guid id)
+        public async Task<UserDto> GetUserByIdAsync(Guid id)
         {
-            var user = _userRepository.GetByIdAsync(id).Result;
-            var userDto = user != null ? _mapper.Map<UserDto>(user) : new UserDto();
-            return userDto;
+            var user = await _userRepository.GetByIdAsync(id);
+            return _mapper.Map<UserDto>(user);
         }
 
         #endregion

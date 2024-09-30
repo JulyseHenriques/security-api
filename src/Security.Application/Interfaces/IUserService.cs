@@ -6,7 +6,7 @@ namespace Security.Application.Interfaces
     {
         #region Queries
 
-        UserDto GetUserById(Guid id);
+        Task<UserDto> GetUserByIdAsync(Guid id);
 
         #endregion
 

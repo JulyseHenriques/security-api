@@ -15,7 +15,7 @@ namespace Security.Application.Queries.Handlers
 
         public async Task<UserDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            return _userService.GetUserById(request.Id);
+            return await _userService.GetUserByIdAsync(request.Id);
         }
     }
 }

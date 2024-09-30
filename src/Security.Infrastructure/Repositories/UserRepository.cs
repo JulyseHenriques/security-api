@@ -31,7 +31,6 @@ namespace Security.Infrastructure.Repositories
         public async Task<UserEntity> GetByIdAsync(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
-
             return _mapper.Map<UserEntity>(user);
         }
 
